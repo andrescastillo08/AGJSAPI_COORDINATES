@@ -17,19 +17,15 @@
         height: 100%;
         width: 100%;
       }
-      #mouse {
-        margin-bottom: 1px;
-        margin-left : 100px;
-        width: 200px;
-        height: 150px;
-        /* background-color: whitesmoke; */
-        color: goldenrod;
-        position:absolute;
-        bottom: 0;    
-    }        
     </style>
 
-
+	 <style>
+        #track {
+            background-color: goldenrod;
+            height: 200px;
+            width: 400px;
+        }
+    </style>
 
     <link
       rel="stylesheet"
@@ -74,24 +70,27 @@
         view.ui.add(ccWidget, "bottom-left");
       });
 
-    </script>
 
+
+
+	
+    <div id="track"></div>
+    <p id="log"></p>
+
+    <script>
+        let track = document.querySelector('#track');
+        track.addEventListener('mousemove', (e) => {
+            let log = document.querySelector('#log');
+            log.innerText = `
+            Screen X/Y: (${e.screenX}, ${e.screenY})
+            Client X/Y: (${e.clientX}, ${e.clientY})`
+        });
+    
+
+    </script>
   </head>
 
   <body>
     <div id="viewDiv"></div>
-    <p id="mouse"></p>
-
-    <script>
-        let track = document.querySelector('#viewDiv');
-        track.addEventListener('mousemove', (e) => {
-            let mouse = document.querySelector('#mouse');
-            mouse.innerText = `
-            Screen X/Y: (${e.screenX}, ${e.screenY})
-            Client X/Y: (${e.clientX}, ${e.clientY})`
-        });
-
-    </script>
-
   </body>
 </html>
