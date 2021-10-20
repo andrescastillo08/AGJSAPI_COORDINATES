@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <title>Load a basic WebMap | Sample | ArcGIS API for JavaScript 4.21</title>
+
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+
+	 <style>
+        #track {
+            background-color: goldenrod;
+            height: 200px;
+            width: 400px;
+        }
+    </style>
+
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.21/esri/themes/light/main.css"
+    />
+
+    <script src="https://js.arcgis.com/4.21/"></script>
+
+    <script>
+      require([
+        "esri/views/MapView",
+        "esri/widgets/CoordinateConversion",
+        "esri/WebMap"
+      ], function (MapView, CoordinateConversion, WebMap) {
+        /************************************************************
+         * Creates a new WebMap instance. A WebMap must reference
+         * a PortalItem ID that represents a WebMap saved to
+         * arcgis.com or an on-premise portal.
+         *
+         * To load a WebMap from an on-premise portal, set the portal
+         * url with esriConfig.portalUrl.
+         ************************************************************/
+        const webmap = new WebMap({
+          portalItem: {
+            // autocasts as new PortalItem()
+            id: "605e74c0832042f8b9fdbec964f7a9b8"
+          }
+        });
+
+        /************************************************************
+         * Set the WebMap instance to the map property in a MapView.
+         ************************************************************/
+        const view = new MapView({
+          map: webmap,
+          container: "viewDiv"
+        });
+
+        const ccWidget = new CoordinateConversion({
+          view: view
+        });
+
+        view.ui.add(ccWidget, "bottom-left");
+      });
+
+
+
+
+	
+    <div id="track"></div>
+    <p id="log"></p>
+
+    <script>
+        let track = document.querySelector('#track');
+        track.addEventListener('mousemove', (e) => {
+            let log = document.querySelector('#log');
+            log.innerText = `
+            Screen X/Y: (${e.screenX}, ${e.screenY})
+            Client X/Y: (${e.clientX}, ${e.clientY})`
+        });
+    
+
+    </script>
+  </head>
+
+  <body>
+    <div id="viewDiv"></div>
+  </body>
+</html>
